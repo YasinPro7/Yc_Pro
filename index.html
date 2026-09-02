@@ -1,0 +1,1879 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title id="appTitle">YASIN - Chatter Messenger Ultimate Pro Max V7</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='25' fill='%231877f2'/><text x='50' y='70' font-size='60' font-weight='bold' fill='white' text-anchor='middle' font-family='Arial'>Y</text></svg>">
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial;background:#eef1f5;color:#111;padding-bottom:85px;transition:background 0.3s, color 0.3s}
+body.dark-mode{background:#18191a;color:#e4e6eb}
+body.dark-mode .card, body.dark-mode .auth-box, body.dark-mode header, body.dark-mode .bottom, body.dark-mode .chat-container{background:#242526;color:#e4e6eb}
+body.dark-mode input, body.dark-mode textarea, body.dark-mode select{background:#3a3b3c;color:#fff;border-color:#4e4f50}
+body.dark-mode .comment{background:#3a3b3c;color:#e4e6eb}
+
+.auth-page {display:none; height:100vh; justify-content:center; align-items:center; background: linear-gradient(to bottom, #f0f2f5, #e7f3ff); padding: 20px;}
+.auth-page.active {display:flex;}
+.auth-box {width:100%; max-width:360px; background:white; padding:20px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); text-align:center;}
+.auth-logo {width:72px; height:72px; background:#1877f2; color:white; font-size:40px; font-weight:bold; display:flex; justify-content:center; align-items:center; border-radius:50%; margin:0 auto 20px auto;}
+.auth-input {width:100%; padding:12px 14px; margin-bottom:12px; border:1px solid #ccc; border-radius:8px; font-size:15px; outline:none;}
+.auth-btn {width:100%; padding:12px; background:#1877f2; color:white; border:none; border-radius:8px; font-size:16px; font-weight:bold; cursor:pointer; margin-top:5px;}
+.auth-link {margin-top:15px; font-size:14px; color:#1877f2; cursor:pointer; display:block;}
+.auth-secondary-btn {width:100%; padding:12px; background:transparent; color:#1877f2; border:1px solid #1877f2; border-radius:8px; font-size:15px; font-weight:bold; cursor:pointer; margin-top:20px;}
+
+#mainAppContainer {display:none;}
+header{position:sticky;top:0;z-index:10;background:#1877f2;color:white;padding:13px 16px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:25px;font-weight:bold;cursor:pointer;}
+nav{display:flex;gap:7px}
+nav button,.btn{border:0;border-radius:8px;padding:9px 13px;background:#1877f2;color:white;cursor:pointer}
+nav button{background:#fff;color:#1877f2}
+main{max-width:700px;margin:auto;padding:12px}
+.page{display:none}.page.active{display:block}
+.card{background:white;border-radius:12px;padding:14px;margin-bottom:12px;box-shadow:0 1px 4px #ccc;position:relative;}
+.row{display:flex;align-items:center;gap:10px}
+.avatar{width:48px;height:48px;border-radius:50%;background:#1877f2;color:white;display:flex;align-items:center;justify-content:center;font-weight:bold;overflow:hidden;cursor:pointer;flex-shrink:0;}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.bigavatar{width:110px;height:110px;border-radius:50%;margin:auto;background:#1877f2;color:white;display:flex;align-items:center;justify-content:center;font-size:40px;overflow:hidden}
+.bigavatar img{width:100%;height:100%;object-fit:cover}
+
+.cover-photo { width: 100%; height: 140px; background: linear-gradient(45deg, #1877f2, #8a2be2); border-radius: 8px 8px 0 0; background-size: cover; background-position: center; position: relative; margin-bottom: -55px; }
+
+input,textarea,select{width:100%;padding:11px;margin:5px 0;border:1px solid #ccc;border-radius:8px;font-size:15px}
+textarea{height:75px}
+.actions{display:flex;justify-content:space-around;border-top:1px solid #ddd;margin-top:10px;padding-top:8px}
+.actions button{border:0;background:none;padding:8px;cursor:pointer;font-weight:bold;color:#555;}
+body.dark-mode .actions button{color:#b0b3b8}
+.media{width:100%;max-height:550px;object-fit:contain;border-radius:9px;margin-top:10px}
+.commentbox{display:none;margin-top:10px;padding:10px;background:#f0f2f5;border-radius:8px}
+body.dark-mode .commentbox{background:#3a3b3c}
+.comment{background:#f0f2f5;padding:8px;border-radius:10px;margin:5px 0;position:relative;}
+body.dark-mode .comment{background:#3a3b3c}
+.reply-box{margin-left:25px; margin-top:5px; background:#e41e3f; padding:6px; border-radius:6px; border-left:2px solid #1877f2;}
+body.dark-mode .reply-box{background:#242526}
+
+.delete-btn {position: absolute; top: 12px; right: 12px; background: #e41e3f; color: white; border: none; border-radius: 50%; width: 28px; height: 28px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center;}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;padding:9px;box-shadow:0 -2px 8px #bbb;z-index:20}
+.bottom button{border:0;background:none;font-size:11px;cursor:pointer}
+.bottom b{display:block;font-size:18px}
+.red{background:#e41e3f!important}
+.green{background:#42b72a!important}
+.item{padding:14px;border-bottom:1px solid #ddd;cursor:pointer}
+.center{text-align:center}
+small{color:#666}
+body.dark-mode small{color:#b0b3b8}
+
+.chat-container { background: #fff; border-radius: 12px; padding: 12px; box-shadow: 0 1px 4px #ccc; }
+.chat-box { height: 350px; overflow-y: auto; border: 1px solid #ddd; border-radius: 8px; padding: 10px; background: #f9f9f9; display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+body.dark-mode .chat-box{background:#18191a; border-color:#3a3b3c}
+.msg-bubble { max-width: 75%; padding: 10px 14px; border-radius: 18px; font-size: 14px; word-break: break-word; position: relative; }
+.msg-incoming { background: #e4e6eb; color: #050505; align-self: flex-start; border-bottom-left-radius: 4px; }
+body.dark-mode .msg-incoming { background: #3a3b3c; color: #fff; }
+.msg-outgoing { background: #0084ff; color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
+.msg-time { font-size: 10px; margin-top: 3px; display: block; opacity: 0.7; text-align: right; }
+.badge { background: #e41e3f; color: white; padding: 2px 6px; border-radius: 50%; font-size: 11px; font-weight: bold; margin-left: 5px; }
+
+.post-creator-box { background: white; border-radius: 12px; padding: 15px; box-shadow: 0 1px 4px #ccc; margin-bottom: 12px; }
+.post-action-buttons { display: flex; gap: 10px; margin-top: 10px; }
+.media-upload-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; background: #f0f2f5; border: 1px solid #ccd0d5; border-radius: 8px; font-weight: bold; cursor: pointer; color: #4b4f56; font-size: 14px; }
+body.dark-mode .media-upload-btn{background:#3a3b3c; color:#e4e6eb; border-color:#4e4f50}
+.create-post-submit-btn { width: 100%; margin-top: 12px; padding: 12px; background: #1877f2; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; }
+.username-link { cursor: pointer; color: #1877f2; font-weight: bold; }
+
+.stories-container { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 12px; }
+.story-card { min-width: 90px; height: 150px; background: #ddd; border-radius: 10px; position: relative; overflow: hidden; cursor: pointer; flex-shrink: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 8px; color: white; font-weight: bold; font-size: 12px; background-size: cover; background-position: center; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+.story-card.add-story { background: white; color: #1877f2; border: 2px dashed #1877f2; justify-content: center; align-items: center; text-align: center; }
+body.dark-mode .story-card.add-story{background:#242526}
+
+.live-timer-badge { background: #e41e3f; color: white; padding: 4px 10px; border-radius: 20px; font-size: 13px; font-weight: bold; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 8px; animation: pulse 1.5s infinite; }
+@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
+
+.reaction-picker { display:none; position:absolute; bottom:45px; background:white; border:1px solid #ccc; border-radius:20px; padding:5px 10px; box-shadow:0 2px 8px rgba(0,0,0,0.2); gap:8px; z-index:99; }
+body.dark-mode .reaction-picker{background:#242526; border-color:#3a3b3c}
+.reaction-picker span { cursor:pointer; font-size:18px; transition:transform 0.2s; }
+.reaction-picker span:hover { transform:scale(1.3); }
+
+.video-stats { display: flex; justify-content: space-between; padding: 6px 4px; font-size: 13px; color: #555; border-bottom: 1px solid #eee; margin-bottom: 6px; }
+body.dark-mode .video-stats{color:#b0b3b8; border-color:#3a3b3c}
+
+.post-follow-btn { padding: 4px 12px; font-size: 12px; font-weight: bold; border-radius: 15px; border: none; cursor: pointer; background: #e7f3ff; color: #1877f2; transition: 0.2s; }
+.post-follow-btn.following { background: #e4e6eb; color: #65676b; }
+
+#callModal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999; flex-direction:column; justify-content:center; align-items:center; color:white; text-align:center; }
+.call-avatar { width: 100px; height: 100px; border-radius: 50%; background: #1877f2; display: flex; align-items: center; justify-content: center; font-size: 40px; margin-bottom: 20px; border: 3px solid white; animation: pulse 1.5s infinite; }
+
+.admin-section-content { display: none; margin-top: 8px; }
+.admin-section-content.active { display: block; }
+.admin-section-header { background: #e7f3ff; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 10px; display: flex; justify-content: space-between; align-items: center; }
+body.dark-mode .admin-section-header { background: #3a3b3c; color: #e4e6eb; }
+</style>
+</head>
+
+<body>
+
+<audio id="notificationSound" src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3" preload="auto"></audio>
+
+<div id="callModal">
+    <div class="call-avatar" id="callModalAvatar">📞</div>
+    <h2 id="callModalTitle">Audio Call...</h2>
+    <p id="callModalStatus">রিং হচ্ছে...</p>
+    <div style="display:flex; gap:20px; margin-top:30px;">
+        <button class="btn green" onclick="acceptCall()" style="padding:15px 25px; font-size:16px;">🟢 রিসিভ করুন</button>
+        <button class="btn red" onclick="endCall()" style="padding:15px 25px; font-size:16px;">🔴 কেটে দিন</button>
+    </div>
+</div>
+
+<div id="loginPage" class="auth-page active">
+    <div class="auth-box">
+        <div class="auth-logo">Y</div>
+        <input type="text" id="loginIdentifier" class="auth-input" placeholder="Mobile number or email">
+        <input type="password" id="loginPassword" class="auth-input" placeholder="Password">
+        <button class="auth-btn" onclick="handleLogin()">Log in</button>
+        <span class="auth-link" onclick="showAuthPage('forgotPage')">Forgot password?</span>
+        <button class="auth-secondary-btn" onclick="showAuthPage('signupPage')">Create new account</button>
+    </div>
+</div>
+
+<div id="signupPage" class="auth-page">
+    <div class="auth-box">
+        <h2>নতুন অ্যাকাউন্ট তৈরি</h2>
+        <input type="text" id="regName" class="auth-input" placeholder="আপনার নাম">
+        <input type="text" id="regIdentifier" class="auth-input" placeholder="Gmail or phone">
+        <input type="password" id="regPassword" class="auth-input" placeholder="New password">
+        <input type="text" id="regReferral" class="auth-input" placeholder="রেফার কোড (ঐচ্ছিক)">
+        <button class="auth-btn" onclick="handleRegister()">Sign Up</button>
+        <span class="auth-link" onclick="showAuthPage('loginPage')">Already have an account? Log in</span>
+    </div>
+</div>
+
+<div id="forgotPage" class="auth-page">
+    <div class="auth-box">
+        <h2>পাসওয়ার্ড রিকভারি</h2>
+        <input type="text" id="forgotIdentifier" class="auth-input" placeholder="Enter email or phone">
+        <input type="password" id="newResetPassword" class="auth-input" placeholder="Enter new password">
+        <button class="auth-btn" onclick="handlePasswordReset()">Reset Password</button>
+        <span class="auth-link" onclick="showAuthPage('loginPage')">Back to Log in</span>
+    </div>
+</div>
+
+<div id="mainAppContainer">
+    <header>
+      <div class="logo" onclick="show('home')">&#128241; YASIN Pro Max V7</div>
+      <nav>
+        <button onclick="show('search')">&#128269;</button>
+        <button onclick="show('notifications')">&#128276; <span id="headerNotifBadge" class="badge" style="display:none;">0</span></button>
+        <button onclick="show('messages'); renderMessengerList();">&#128172; <span id="headerMsgBadge" class="badge" style="display:none;">0</span></button>
+      </nav>
+    </header>
+
+    <main>
+        <section id="home" class="page active">
+            <div class="stories-container" id="storiesList">
+                <div class="story-card add-story" onclick="triggerStoryUpload()">
+                    <div style="font-size:24px;">➕</div>
+                    <div>Add Story</div>
+                </div>
+            </div>
+            <input id="storyFileInput" type="file" accept="image/*" style="display:none;" onchange="handleStoryFile(event)">
+
+            <div class="post-creator-box">
+                <div class="row">
+                    <div class="avatar" id="homeAvatar" onclick="viewProfile(currentUser)">Y</div>
+                    <div>
+                        <b id="homeName">Yasin</b>
+                        <div id="homeCustomStatus" style="font-size:11px; color:#666;"></div>
+                    </div>
+                </div>
+                <textarea id="postText" placeholder="What's on your mind?"></textarea>
+                
+                <input id="photoFile" type="file" accept="image/*" style="display:none;" onchange="previewMediaName('photo')">
+                <input id="videoFile" type="file" accept="video/*" style="display:none;" onchange="previewMediaName('video')">
+                <input id="cameraDirectInput" type="file" accept="image/*" capture="environment" style="display:none;" onchange="handleCameraDirect(event)">
+
+                <div style="margin-top:8px;">
+                    <label style="font-size:13px; font-weight:bold; color:#555;">লোকেশন (ঐচ্ছিক):</label>
+                    <input type="text" id="postLocation" placeholder="যেমন: ঢাকা, বাংলাদেশ" style="padding:8px; font-size:13px; margin-bottom:5px;">
+
+                    <label style="font-size:13px; font-weight:bold; color:#555;">ফ্রেন্ড ট্যাগ করুন (ঐচ্ছিক):</label>
+                    <input type="text" id="postTag" placeholder="বন্ধুর নাম লিখুন" style="padding:8px; font-size:13px; margin-bottom:5px;">
+
+                    <label style="font-size:13px; font-weight:bold; color:#555;">প্রাইভেসি সিলেক্ট করুন:</label>
+                    <select id="postPrivacy">
+                        <option value="Public">🌐 Public</option>
+                        <option value="Private">🔒 Private (শুধুমাত্র নিজের)</option>
+                    </select>
+                </div>
+
+                <div id="mediaPreviewStatus" style="font-size: 13px; color: #1877f2; margin-top: 5px; font-weight: bold;"></div>
+
+                <div class="post-action-buttons">
+                    <label for="photoFile" class="media-upload-btn">&#128247; Photo</label>
+                    <label for="videoFile" class="media-upload-btn">&#127916; Video</label>
+                    <label for="cameraDirectInput" class="media-upload-btn" style="background:#e7f3ff; color:#1877f2;">📸 Camera</label>
+                </div>
+
+                <button class="create-post-submit-btn" onclick="createPost()">&#10133; Create Post</button>
+                <button class="create-post-submit-btn" onclick="startLiveStreamModal()" style="background:#e41e3f; margin-top:8px;">🔴 Go Live (লাইভ শুরু করুন)</button>
+            </div>
+            <div id="feed"></div>
+        </section>
+
+        <section id="friends" class="page">
+            <div class="card">
+                <h2>👥 ফ্রেন্ড রিকোয়েস্ট ও ফলোয়ার্স</h2>
+                <div style="background:#e7f3ff; padding:10px; border-radius:8px; margin-bottom:15px;">
+                    <b>📬 আপনার কাছে নতুন ফ্রেন্ড রিকোয়েস্ট:</b> <span id="requestCountBadge" class="badge">0</span>
+                </div>
+                <div id="friendRequestsList"></div>
+                <hr style="margin:15px 0;">
+                <h3>সকল ইউজার ও ফলোয়ার্স</h3>
+                <div id="people"></div>
+            </div>
+        </section>
+
+        <section id="reels" class="page">
+            <div class="card">
+                <h2>&#127917; Public Reels & Viral Videos</h2>
+                <p>দেশ-বিদেশের সকল ইউজারের ভাইরাল ভিডিওগুলো এখানে একের পর এক দেখা যাবে!</p>
+            </div>
+            <div id="reelsFeed"></div>
+        </section>
+
+        <section id="messages" class="page">
+            <div id="messengerInboxView" class="card">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <h2>Inbox & Message Requests</h2>
+                    <button class="btn green" onclick="openCreateGroupModal()" style="padding:6px 12px; font-size:13px;">👥 নতুন গ্রুপ খুলুন</button>
+                </div>
+
+                <div style="background:#fff3cd; border:1px solid #ffeeba; padding:10px; border-radius:8px; margin:10px 0;">
+                    <b>📥 নতুন মেসেজ রিকোয়েস্ট: <span id="msgRequestCountBadge" style="color:#d9534f;">0</span> টি</b>
+                    <div id="messageRequestsContainer" style="margin-top:8px;"></div>
+                </div>
+
+                <div class="stories-container" id="inboxStoriesBar" style="margin-top:10px;">
+                    <div class="story-card add-story" onclick="triggerStoryUpload()">
+                        <div style="font-size:20px;">➕</div>
+                        <div style="font-size:11px;">Create</div>
+                    </div>
+                </div>
+
+                <h3>গ্রুপ চ্যাটসমূহ</h3>
+                <div id="groupsListContainer"></div>
+
+                <hr style="margin:10px 0; border:0; border-top:1px solid #eee;">
+                
+                <h3>Direct Messages</h3>
+                <div id="messengerList"></div>
+            </div>
+
+            <div id="messengerChatView" class="chat-container" style="display:none;">
+                <div class="row" style="border-bottom: 1px solid #ddd; padding-bottom: 8px; margin-bottom: 8px;">
+                    <button class="btn" onclick="backToInbox()" style="padding: 5px 10px;">&#8592; Back</button>
+                    <div class="avatar" id="chatUserAvatar">U</div>
+                    <div style="flex:1;">
+                        <h3 id="chatUserName" style="margin:0; font-size:16px;">User / Group</h3>
+                        <small style="color:green;" id="chatStatusText">● Active now</small>
+                    </div>
+                    <div id="groupManageBtnContainer"></div>
+                    <button class="btn green" onclick="triggerCall('audio')" title="Voice Call">&#128222;</button>
+                    <button class="btn" onclick="triggerCall('video')" title="Video Call">&#128249;</button>
+                    <button class="btn red" onclick="triggerGroupConferenceCall()" title="Group Conference Call" style="background:#8a2be2;">👥 কনফারেন্স কল</button>
+                </div>
+
+                <div id="chatMessagesBox" class="chat-box"></div>
+
+                <input id="chatMediaFile" type="file" accept="image/*,video/*,audio/*" style="display:none;" onchange="sendChatMediaFile()">
+
+                <div style="display: flex; gap: 6px; align-items: center;">
+                    <label for="chatMediaFile" class="btn green" style="padding: 10px; cursor:pointer;" title="ছবি বা ভিডিও পাঠান">&#128206;</label>
+                    <button class="btn red" onclick="recordVoiceNote()" title="Voice Record">&#127908;</button>
+                    <input id="chatInputText" placeholder="একটি মেসেজ লিখুন..." onkeydown="if(event.key==='Enter')sendDirectMsg()" style="margin:0;">
+                    <button class="btn" onclick="sendDirectMsg()">Send</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="notifications" class="page">
+            <div class="card">
+                <h2>&#128276; Notifications</h2>
+                <div id="notices"></div>
+            </div>
+        </section>
+
+        <section id="profile" class="page">
+            <div class="card center" style="padding:0; overflow:hidden;">
+                <div class="cover-photo" id="profileCover" onclick="changeCoverPhoto()" style="cursor:pointer;" title="কভার ফটো পরিবর্তন করুন"></div>
+                <div style="padding:14px; padding-top:60px;">
+                    <div class="bigavatar" id="profileAvatar" style="margin-top:-60px; border:4px solid white;">Y</div>
+                    <br>
+                    <h2 id="profileName">Yasin</h2>
+                    <p id="profileBio">সবাই সাপোর্ট করবেন &#128156;</p>
+                    <p id="profileStatusDisplay" style="font-size:13px; color:#1877f2; font-weight:bold; margin-top:-5px;"></p>
+                    <div>
+                        <b id="followersCount">0</b> Followers &nbsp;&nbsp;&nbsp;
+                        <b id="followingCount">0</b> Following
+                    </div><br>
+                    
+                    <div style="background:#f0f2f5; padding:10px; border-radius:8px; margin-bottom:10px;">
+                        <b>⭐ Story Highlights (হাইলাইটস)</b>
+                        <div id="profileHighlightsBar" style="display:flex; gap:8px; overflow-x:auto; margin-top:8px; padding-bottom:5px;"></div>
+                    </div>
+
+                    <div style="background:#e7f3ff; padding:10px; border-radius:8px; margin-bottom:10px;">
+                        <b>🪙 Total Coins: <span id="profileCoins">0</span> / 500,000</b>
+                    </div>
+                    
+                    <div id="profileActionButtons" style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
+                        <button class="btn" onclick="show('editProfile')">✏️ Edit Profile</button>
+                        <button class="btn green" onclick="show('monetization')">💵 Monetization & Withdraw</button>
+                    </div>
+                    <br>
+                    <button class="btn" onclick="showFollowers()">&#128101; Followers</button>
+                    <button class="btn" onclick="showFollowing()">&#10145;&#65039; Following</button>
+                </div>
+            </div>
+
+            <div class="profile-tabs" style="display:flex; gap:5px; margin-bottom:10px;">
+                <button class="profile-tab-btn active btn" id="tabAll" onclick="switchProfileTab('all')" title="সব পোস্ট">📊 সব</button>
+                <button class="profile-tab-btn btn" id="tabPrivate" onclick="switchProfileTab('private')" title="প্রাইভেট পোস্ট">🔒 প্রাইভেট</button>
+                <button class="profile-tab-btn btn" id="tabRepost" onclick="switchProfileTab('repost')" title="রিপোসট">🔄 রিপোস্ট</button>
+                <button class="profile-tab-btn btn" id="tabSaved" onclick="switchProfileTab('saved')" title="সেভ করা পোস্ট">🔖 সেভড</button>
+                <button class="profile-tab-btn btn" id="tabLiked" onclick="switchProfileTab('liked')" title="লাইক করা পোস্ট">❤️ লাইকড</button>
+            </div>
+
+            <div id="profileFeed"></div>
+        </section>
+
+        <section id="savedPage" class="page">
+            <div class="card">
+                <h2>🔖 Saved Posts & Videos</h2>
+                <div id="savedFeed"></div>
+            </div>
+        </section>
+
+        <section id="referralPage" class="page">
+            <div class="card center">
+                <h2>🎁 Invite Friends & Earn Coins</h2>
+                <p>আপনার বন্ধুদের রেফার করুন। কেউ আপনার রেফার কোড দিয়ে একাউন্ট খুললে আপনি পাবেন <b>১০,০০০ কয়েন</b> বোনাস!</p>
+                <hr>
+                <p>আপনার রেফার কোড:</p>
+                <h3 id="myReferralCode" style="color:#1877f2; background:#f0f2f5; padding:10px; border-radius:8px; display:inline-block;">YASIN123</h3>
+                <br>
+                <button class="btn" onclick="copyReferralLink()">📋 রেফার কোড কপি করুন</button>
+            </div>
+        </section>
+
+        <section id="monetization" class="page">
+            <div class="card">
+                <h2>🪙 Creator Monetization & Withdraw</h2>
+                <p>অন্যরা আপনার ভিডিও দেখলে কয়েন আয় হবে। উইথড্র করার জন্য কমপক্ষে <b>৫,০০,০০০ (৫ লাখ) কয়েন</b> থাকতে হবে।</p>
+                <hr>
+                <p>আপনার বর্তমান কয়েন: <b id="totalCoinsPanel" style="color:#1877f2; font-size:18px;">0</b> / 500,000</p>
+                
+                <h3>টাকা উত্তোলন করুন (Withdraw Request)</h3>
+                <label>পেমেন্ট মেথড সিলেক্ট করুন:</label>
+                <select id="withdrawMethod">
+                    <option value="bkash">বিকাশ (bKash)</option>
+                    <option value="nagad">নগদ (Nagad)</option>
+                    <option value="rocket">রকেট (Rocket)</option>
+                    <option value="upay">উপায় (Upay)</option>
+                    <option value="bank">ব্যাংক অ্যাকাউন্ট (Bank Account)</option>
+                </select>
+
+                <label>অ্যাকাউন্ট নম্বর / বিবরণ:</label>
+                <input type="text" id="withdrawAccount" placeholder="আপনার বিকাশ/নগদ নম্বর বা ব্যাংক একাউন্ট নম্বর দিন">
+
+                <button class="btn green" onclick="requestWithdraw()" style="margin-top:10px;">💸 উইথড্র রিকোয়েস্ট পাঠান</button>
+            </div>
+        </section>
+
+        <section id="editProfile" class="page">
+            <div class="card">
+                <h2>&#9999;&#65039; Edit Profile</h2>
+                <div class="bigavatar" id="preview">Y</div>
+                <input id="nameInput" placeholder="Name">
+                <textarea id="bioInput" placeholder="Bio"></textarea>
+                <input id="statusInput" placeholder="কাস্টম স্ট্যাটাস বা ইমোজি (যেমন: 💻 Coding | ☕ Coffee)">
+                <input id="profileFile" type="file" accept="image/*">
+                <button class="btn" onclick="saveProfile()">&#128190; Save</button>
+            </div>
+        </section>
+
+        <section id="search" class="page">
+            <div class="card">
+                <h2>&#128269; Search Users (ইনস্ট্যান্ট সার্চ)</h2>
+                <input id="searchInput" placeholder="ইউজারের নাম লিখুন..." oninput="searchUser()">
+                <div id="searchResult" style="margin-top:10px;"></div>
+            </div>
+        </section>
+
+        <section id="settings" class="page">
+            <div class="card">
+                <h2>&#9881;&#65039; Settings</h2>
+                <div class="item" onclick="toggleDarkMode()">&#127769; Dark Mode Toggle (পার্মানেন্ট)</div>
+                <div class="item" onclick="toggleLanguage()">🌐 ভাষা পরিবর্তন (Language: <span id="currentLangText">বাংলা</span>)</div>
+                <div class="item" onclick="openStoryArchiveModal()">📁 স্টোরি আর্কাইভ (Archive)</div>
+                <div class="item" onclick="shareAppDownloadLink()">🚀 অ্যাপটি শেয়ার করুন ও ডাউনলোড লিংক নিন</div>
+                <div class="item" onclick="openAppealPrompt()">📢 মালিকের কাছে আপিল করুন</div>
+                <div class="item" onclick="show('savedPage')">🔖 Saved Videos & Posts</div>
+                <div class="item" onclick="show('referralPage')">&#127873; Referral & Invite</div>
+                <div class="item" onclick="show('monetization')">&#128184; Monetization & Withdraw</div>
+                <div class="item" onclick="verifyAdminPasswordPrompt()">&#128081; Admin Panel (মালিক পাসওয়ার্ড)</div>
+                <div class="item" onclick="logout()" style="color:#d9534f; font-weight:bold;">&#128682; Log Out (অন্য অ্যাকাউন্টে লগইন করতে)</div>
+            </div>
+        </section>
+
+        <section id="privacy" class="page">
+            <div class="card">
+                <h2>&#128274; Privacy</h2>
+                <div class="item" onclick="alert('Profile এখন Public')">&#128100; Profile Public</div>
+                <div class="item" onclick="alert('Posts এখন Public')">&#128221; Posts Public</div>
+            </div>
+        </section>
+
+        <section id="help" class="page">
+            <div class="card">
+                <h2>&#10067; Help & Support</h2>
+                <div class="item" onclick="reportProblemPrompt()">⚠️ Report a Problem</div>
+                <div class="item" onclick="openAppealPrompt()">📢 মালিকের কাছে আপিল করুন</div>
+            </div>
+        </section>
+
+        <section id="followers" class="page">
+            <div class="card">
+                <h2>&#128101; Followers</h2>
+                <div id="followersList"></div>
+            </div>
+        </section>
+
+        <section id="following" class="page">
+            <div class="card">
+                <h2>&#128101; Following</h2>
+                <div id="followingList"></div>
+            </div>
+        </section>
+
+        <section id="admin" class="page">
+            <div class="card">
+                <h2>👑 YASIN Super Admin Panel (Master Control)</h2>
+                <p><b>Owner:</b> Yasin (মালিক)</p>
+                <hr>
+
+                <div style="background:#e7f3ff; padding:12px; border-radius:8px; margin-bottom:15px;">
+                    <h3>🔑 মালিকের সিক্রেট পাসওয়ার্ড পরিবর্তন করুন</h3>
+                    <input type="password" id="newAdminPinInput" placeholder="নতুন সিক্রেট পাসওয়ার্ড লিখুন" class="auth-input" style="margin-bottom:5px;">
+                    <button class="btn" onclick="changeAdminPassword()" style="width:100%;">পাসওয়ার্ড আপডেট করুন</button>
+                </div>
+                <hr>
+
+                <button class="btn green" onclick="sendAdminBroadcast()" style="margin-bottom:15px; width:100%;">📢 অ্যাপের সব ইউজারের কাছে আপডেট ব্রডকাস্ট করুন</button>
+                <hr>
+
+                <div class="admin-section-header" onclick="toggleAdminSection('adminUsersContent')">
+                    <span>👥 ইউজার ম্যানেজমেন্ট (সাসপেন্ড / আনসাসপেন্ড / ভেরিফাইড ব্যাজ)</span>
+                    <span>▼</span>
+                </div>
+                <div id="adminUsersContent" class="admin-section-content">
+                    <div id="adminUsers"></div>
+                </div>
+
+                <div class="admin-section-header" onclick="toggleAdminSection('adminReportsContent')">
+                    <span>🚨 রিপোর্ট ও আপিল লিস্ট (Reports & Appeals)</span>
+                    <span>▼</span>
+                </div>
+                <div id="adminReportsContent" class="admin-section-content">
+                    <div id="adminReports"></div>
+                </div>
+
+                <div class="admin-section-header" onclick="toggleAdminSection('adminPostsContent')">
+                    <span>📌 সকল পোস্ট, ছবি, ভিডিও ও কমেন্ট ম্যানেজমেন্ট</span>
+                    <span>▼</span>
+                </div>
+                <div id="adminPostsContent" class="admin-section-content">
+                    <div id="adminPosts"></div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <div class="bottom">
+        <button onclick="show('home')"><b>&#127968;</b>Home</button>
+        <button onclick="show('friends'); renderFriendRequests();"><b>&#128101;</b>Friends</button>
+        <button onclick="show('reels')"><b>&#127917;</b>Reels</button>
+        <button onclick="show('messages'); renderMessengerList(); renderMessageRequests();"><b>&#128172;</b>Messages</button>
+        <button onclick="show('profile'); viewProfile(currentUser);"><b>&#128100;</b>Profile</button>
+        <button onclick="show('settings')"><b>&#9881;&#65039;</b>Settings</button>
+    </div>
+</div>
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyArvqSOAi_KcGn7bhqPEfOqHquFjpnnUsY",
+  authDomain: "yc-pro-ed93b.firebaseapp.com",
+  databaseURL: "https://yc-pro-ed93b-default-rtdb.firebaseio.com",
+  projectId: "yc-pro-ed93b",
+  storageBucket: "yc-pro-ed93b.firebasestorage.app",
+  messagingSenderId: "180062450397",
+  appId: "1:180062450397:web:3ceff6ef77aa4d54112134",
+  measurementId: "G-MVH6CPR5Y7"
+};
+
+firebase.initializeApp(firebaseConfig);
+const dbRef = firebase.database();
+
+let users = [
+    {id:1, name:"Yasin", identifier:"yasin@owner.com", password:"123", bio:"অ্যাপের মূল মালিক (Super Owner)", status:"👑 Owner & Creator", followers:[], following:[], friendRequests:[], blocked:[], notifications:[], admin:true, verified:true, suspended:false, coins:250000, referralCode:"YASIN1", savedPosts:[], reposts:[], highlights:[], archiveStories:[]},
+    {id:2, name:"Rahim", identifier:"rahim@gmail.com", password:"123", bio:"Hello", status:"😊 Active", followers:[], following:[], friendRequests:[], blocked:[], notifications:[], admin:false, verified:false, suspended:false, coins:50000, referralCode:"RAHIM2", savedPosts:[], reposts:[], highlights:[], archiveStories:[]},
+    {id:3, name:"Karim", identifier:"karim@gmail.com", password:"123", bio:"YASIN User", status:"🚀 Exploring", followers:[], following:[], friendRequests:[], blocked:[], notifications:[], admin:false, verified:false, suspended:false, coins:10000, referralCode:"KARIM3", savedPosts:[], reposts:[], highlights:[], archiveStories:[]},
+    {id:4, name:"Hasan", identifier:"hasan@gmail.com", password:"123", bio:"Nice to meet you", status:"☕ Coffee lover", followers:[], following:[], friendRequests:[], blocked:[], notifications:[], admin:false, verified:false, suspended:false, coins:80000, referralCode:"HASAN4", savedPosts:[], reposts:[], highlights:[], archiveStories:[]}
+];
+
+let currentUser = 1;
+let viewingUserId = 1;
+let activeChatUserId = null;
+let activeGroupId = null;
+let currentProfileTab = 'all';
+let currentLang = 'bn';
+let posts = [];
+let reports = [];
+let messages = [];
+let groups = [];
+let groupMessages = [];
+let stories = [];
+
+let masterAdminPin = localStorage.getItem("yasin_master_pin") || "01889257939eyacin";
+
+window.onload = function() {
+    let savedUsers = localStorage.getItem("yasin_users");
+    let savedPosts = localStorage.getItem("yasin_posts");
+    let savedGroups = localStorage.getItem("yasin_groups");
+    let savedGroupMsgs = localStorage.getItem("yasin_group_messages");
+
+    if(savedUsers) users = JSON.parse(savedUsers);
+    if(savedPosts) posts = JSON.parse(savedPosts);
+    if(savedGroups) groups = JSON.parse(savedGroups);
+    if(savedGroupMsgs) groupMessages = JSON.parse(savedGroupMsgs);
+
+    users.forEach(u => { 
+        if(!u.friendRequests) u.friendRequests = []; 
+        if(!u.followers) u.followers = [];
+        if(!u.following) u.following = [];
+        if(!u.highlights) u.highlights = [];
+        if(!u.archiveStories) u.archiveStories = [];
+        if(!u.status) u.status = "👋 Hey there!";
+        if(u.verified === undefined) u.verified = false;
+    });
+
+    let owner = users.find(u => u.id === 1);
+    if(owner) {
+        owner.admin = true;
+        owner.verified = true;
+        owner.suspended = false;
+    }
+
+    if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && !localStorage.getItem("yasin_dark_mode")) {
+        document.body.classList.add("dark-mode");
+    } else if(localStorage.getItem("yasin_dark_mode") === "true") {
+        document.body.classList.add("dark-mode");
+    }
+
+    let activeUser = localStorage.getItem("activeUserSession");
+    if(activeUser) {
+        let parsedUser = JSON.parse(activeUser);
+        let freshUser = users.find(u => u.id === parsedUser.id);
+        if(freshUser && freshUser.suspended) {
+            alert("আপনার অ্যাকাউন্টটি সাসপেন্ড করা হয়েছে!");
+            localStorage.removeItem("activeUserSession");
+            return;
+        }
+        if(freshUser) {
+            currentUser = freshUser.id;
+            viewingUserId = currentUser;
+            document.getElementById("loginPage").classList.remove("active");
+            document.getElementById("mainAppContainer").style.display = "block";
+            load();
+            syncFirebaseData();
+        }
+    }
+};
+
+function syncFirebaseData() {
+    dbRef.ref("posts").on("value", snapshot => {
+        let val = snapshot.val();
+        if(val) {
+            posts = val;
+            updateUI();
+        }
+    });
+
+    dbRef.ref("messages").on("value", snapshot => {
+        let val = snapshot.val();
+        if(val) {
+            messages = val;
+            if(activeChatUserId) renderDirectMessages();
+            renderMessengerList();
+        }
+    });
+}
+
+function toggleLanguage() {
+    currentLang = currentLang === 'bn' ? 'en' : 'bn';
+    document.getElementById("currentLangText").innerText = currentLang === 'bn' ? 'বাংলা' : 'English';
+    alert(currentLang === 'bn' ? "ভাষা বাংলা করা হয়েছে!" : "Language switched to English!");
+}
+
+function toggleDarkMode() {
+    document.body.classList.toggle("dark-mode");
+    let isDark = document.body.classList.contains("dark-mode");
+    localStorage.setItem("yasin_dark_mode", isDark);
+    alert(isDark ? "ডার্ক মোড অন করা হয়েছে!" : "লাইট মোড অন করা হয়েছে!");
+}
+
+function playNotificationSound() {
+    let sound = document.getElementById("notificationSound");
+    if(sound) {
+        sound.play().catch(() => {});
+    }
+}
+
+function triggerCall(type) {
+    let modal = document.getElementById("callModal");
+    let titleEl = document.getElementById("callModalTitle");
+    let statusEl = document.getElementById("callModalStatus");
+    let avatarEl = document.getElementById("callModalAvatar");
+    
+    let target = users.find(u => u.id === activeChatUserId);
+    let targetName = target ? target.name : "ইউজার";
+
+    titleEl.innerText = (type === 'audio' ? "📞 অডিও কল" : "📹 ভিডিও কল") + " - " + targetName;
+    statusEl.innerText = "রিং হচ্ছে... সংযোগ স্থাপন করা হচ্ছে...";
+    avatarEl.innerHTML = target && target.photo ? `<img src="${target.photo}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">` : "📞";
+
+    modal.style.display = "flex";
+}
+
+function triggerGroupConferenceCall() {
+    let modal = document.getElementById("callModal");
+    let titleEl = document.getElementById("callModalTitle");
+    let statusEl = document.getElementById("callModalStatus");
+    let avatarEl = document.getElementById("callModalAvatar");
+
+    let g = groups.find(x => x.id === activeGroupId);
+    let groupName = g ? g.name : "গ্রুপ";
+
+    titleEl.innerText = "👥 গ্রুপ কনফারেন্স কল - " + groupName;
+    statusEl.innerText = "সকল মেম্বারদের কাছে রিং হচ্ছে...";
+    avatarEl.innerHTML = "👥";
+
+    modal.style.display = "flex";
+}
+
+function acceptCall() {
+    document.getElementById("callModalStatus").innerText = "🔴 কল রিসিভ হয়েছে! কথা বলুন...";
+    setTimeout(() => {
+        document.getElementById("callModal").style.display = "none";
+    }, 2000);
+}
+
+function endCall() {
+    document.getElementById("callModal").style.display = "none";
+    alert("কল কেটে দেওয়া হয়েছে!");
+}
+
+function changeCoverPhoto() {
+    let imgUrl = prompt("কভার ছবির ইমেজ লিংক বা URL দিন:");
+    if(!imgUrl) return;
+    let u = me();
+    u.coverPhoto = imgUrl;
+    save();
+    viewProfile(currentUser);
+    alert("কভার ফটো সফলভাবে আপডেট করা হয়েছে!");
+}
+
+function openStoryArchiveModal() {
+    let u = me();
+    let arch = u.archiveStories || [];
+    let win = window.open("");
+    let content = arch.map(s => `<div style="margin-bottom:15px;"><img src="${s.media}" style="max-width:150px; border-radius:8px;"><br><small>${s.text || 'স্টোরি'}</small></div>`).join("") || "<p>আপনার কোনো আর্কাইভ স্টোরি নেই।</p>";
+    win.document.write(`<body style="background:#18191a; color:white; text-align:center; padding:20px; font-family:Arial;"><h2>📁 আপনার স্টোরি আর্কাইভ</h2>${content}<br><button onclick="window.close()" style="padding:10px 20px; background:#1877f2; color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer;">বন্ধ করুন</button></body>`);
+}
+
+function handleRegister() {
+    let name = document.getElementById("regName").value.trim();
+    let identifier = document.getElementById("regIdentifier").value.trim();
+    let password = document.getElementById("regPassword").value.trim();
+    let refCode = document.getElementById("regReferral").value.trim();
+
+    if(!name || !identifier || !password) { alert("সব ফিল্ড পূরণ করুন!"); return; }
+    if(users.find(u => u.identifier === identifier)) { alert("এই জিমেইল বা নম্বর দিয়ে ইতিমধ্যে অ্যাকাউন্ট আছে!"); return; }
+
+    if(users.length >= 15) {
+        alert("দুঃখিত, এই ডিভাইসে সর্বোচ্চ অ্যাকাউন্ট সীমা পূর্ণ হয়েছে!");
+        return;
+    }
+
+    let newUserId = Date.now();
+    let uniqueRef = name.substring(0,3).toUpperCase() + Math.floor(100 + Math.random() * 900);
+
+    let newUser = {
+        id: newUserId, name: name, identifier: identifier, password: password,
+        bio: "YASIN Pro Max User", status: "👋 Hey there!", followers: [], following: [], friendRequests: [], blocked: [],
+        notifications: ["🔔 নতুন অ্যাকাউন্টে স্বাগতম!"], admin: false, verified: false, suspended: false,
+        coins: 0, referralCode: uniqueRef, savedPosts: [], reposts: [], highlights: [], archiveStories: []
+    };
+
+    if(refCode) {
+        let referrer = users.find(u => u.referralCode === refCode);
+        if(referrer) {
+            referrer.coins = (referrer.coins || 0) + 10000;
+            notify(referrer.id, "রেফারল বোনাস ১০,০০০ কয়েন যোগ হয়েছে! 🎉");
+        }
+    }
+
+    users.push(newUser);
+    save(); 
+    alert("রেজিস্ট্রেশন সফল! এখন লগইন করুন।");
+    showAuthPage('loginPage');
+}
+
+function handleLogin() {
+    let identifier = document.getElementById("loginIdentifier").value.trim();
+    let password = document.getElementById("loginPassword").value.trim();
+    if(!identifier || !password) { alert("তথ্য দিন!"); return; }
+
+    let user = users.find(u => u.identifier === identifier && u.password === password);
+    if(user) {
+        if(user.suspended) { alert("আপনার অ্যাকাউন্টটি সাসপেন্ড করা হয়েছে!"); return; }
+        currentUser = user.id;
+        viewingUserId = currentUser;
+        localStorage.setItem("activeUserSession", JSON.stringify(user));
+        document.getElementById("loginPage").classList.remove("active");
+        document.getElementById("mainAppContainer").style.display = "block";
+        load();
+        syncFirebaseData();
+    } else { alert("ভুল জিমেইল অথবা পাসওয়ার্ড!"); }
+}
+
+function handlePasswordReset() {
+    let identifier = document.getElementById("forgotIdentifier").value.trim();
+    let newPassword = document.getElementById("newResetPassword").value.trim();
+    if(!identifier || !newPassword) { alert("তথ্য দিন!"); return; }
+    let user = users.find(u => u.identifier === identifier);
+    if(user) {
+        user.password = newPassword;
+        save(); alert("পাসওয়ার্ড পরিবর্তিত!");
+        showAuthPage('loginPage');
+    } else { alert("ইউজার পাওয়া যায়নি!"); }
+}
+
+function startLiveStreamModal() {
+    let title = prompt("আপনার লাইভ স্ট্রিমের শিরোনাম লিখুন:");
+    if(!title) return;
+
+    let livePost = {
+        id: Date.now(), user: currentUser,
+        text: "🔴 [LIVE STREAM] " + title,
+        likes: [], comments: [], reactions: {}, media: "", type: "live",
+        startTime: Date.now(), views: 1, shares: 0, giftsReceived: 0, viral: true, privacy: "Public"
+    };
+    posts.unshift(livePost);
+    dbRef.ref("posts").set(posts);
+    save(); updateUI();
+    alert("🔴 লাইভ শুরু হয়েছে! দর্শকরা এখন কমেন্ট ও গিফট পাঠাতে পারবে।");
+}
+
+function sendLiveGift(postId) {
+    let p = posts.find(x => x.id === postId);
+    if(!p || p.type !== "live") return;
+    let u = me();
+    if(u.coins < 1000) {
+        alert("গিফট পাঠাতে আপনার অন্তত ১,০০০ কয়েন থাকতে হবে!");
+        return;
+    }
+    u.coins -= 1000;
+    p.giftsReceived = (p.giftsReceived || 0) + 1000;
+    dbRef.ref("posts").set(posts);
+    save(); updateUI();
+    alert("🎁 সফলভাবে লাইভে ১,০০০ কয়েনের একটি ভার্চুয়াল গিফট পাঠানো হয়েছে! ধন্যবাদ ❤️");
+}
+
+setInterval(() => {
+    let liveTimers = document.querySelectorAll(".live-timer-badge");
+    liveTimers.forEach(el => {
+        let startTime = parseInt(el.getAttribute("data-start"));
+        if(!startTime) return;
+        let diff = Math.floor((Date.now() - startTime) / 1000);
+        let mins = Math.floor(diff / 60);
+        let secs = diff % 60;
+        el.innerText = `🔴 LIVE | ${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    });
+}, 1000);
+
+function toggleAdminSection(contentId) {
+    let el = document.getElementById(contentId);
+    if(el) { el.classList.toggle("active"); }
+}
+
+function changeAdminPassword() {
+    let newPin = document.getElementById("newAdminPinInput").value.trim();
+    if(!newPin) { alert("পাসওয়ার্ড দিন!"); return; }
+    masterAdminPin = newPin;
+    localStorage.setItem("yasin_master_pin", newPin);
+    document.getElementById("newAdminPinInput").value = "";
+    alert("পাসওয়ার্ড পরিবর্তিত হয়েছে!");
+}
+
+function verifyAdminPasswordPrompt() {
+    let pin = prompt("মালিকের পাসওয়ার্ড দিন:");
+    if(pin === masterAdminPin) { show('admin'); } 
+    else if(pin !== null) { alert("ভুল পাসওয়ার্ড!"); }
+}
+
+function sendAdminBroadcast() {
+    let msg = prompt("ব্রডকাস্ট ঘোষণা লিখুন:");
+    if(!msg) return;
+    users.forEach(u => {
+        if(!u.notifications) u.notifications = [];
+        u.notifications.unshift("📢 ঘোষণা: " + msg);
+    });
+    save(); alert("ব্রডকাস্ট পাঠানো হয়েছে!");
+}
+
+function showAuthPage(pageId) {
+    document.querySelectorAll(".auth-page").forEach(p => p.classList.remove("active"));
+    document.getElementById(pageId).classList.add("active");
+}
+
+function save(){
+    try {
+        localStorage.setItem("yasin_users", JSON.stringify(users));
+        localStorage.setItem("yasin_posts", JSON.stringify(posts));
+        localStorage.setItem("yasin_reports", JSON.stringify(reports));
+        localStorage.setItem("yasin_messages", JSON.stringify(messages));
+        localStorage.setItem("yasin_groups", JSON.stringify(groups));
+        localStorage.setItem("yasin_group_messages", JSON.stringify(groupMessages));
+        localStorage.setItem("yasin_stories", JSON.stringify(stories));
+    } catch (e) {
+        alert("⚠️ স্টোরেজ ফুল হয়ে গেছে! দয়া করে ছোট সাইজের ভিডিও বা ছবি ব্যবহার করুন।");
+    }
+}
+
+function load(){
+    let p = localStorage.getItem("yasin_posts");
+    let r = localStorage.getItem("yasin_reports");
+    let m = localStorage.getItem("yasin_messages");
+    let g = localStorage.getItem("yasin_groups");
+    let gm = localStorage.getItem("yasin_group_messages");
+    let s = localStorage.getItem("yasin_stories");
+
+    if(p) posts = JSON.parse(p);
+    if(r) reports = JSON.parse(r);
+    if(m) messages = JSON.parse(m);
+    if(g) groups = JSON.parse(g);
+    if(gm) groupMessages = JSON.parse(gm);
+    if(s) {
+        let now = Date.now();
+        stories = JSON.parse(s).filter(story => {
+            if((now - story.timestamp) >= 86400000) {
+                let stUser = users.find(u => u.id === story.user);
+                if(stUser) {
+                    if(!stUser.archiveStories) stUser.archiveStories = [];
+                    if(!stUser.archiveStories.some(as => as.id === story.id)) {
+                        stUser.archiveStories.push(story);
+                    }
+                }
+                return false;
+            }
+            return true;
+        });
+        save();
+    }
+    updateUI();
+}
+
+function me(){ return users.find(u => u.id === currentUser) || users[0]; }
+
+function show(id){
+    document.querySelectorAll(".page").forEach(x => x.classList.remove("active"));
+    let el = document.getElementById(id);
+    if(el) el.classList.add("active");
+    if(id === 'home' || id === 'reels') { incrementPostViewsOnView(); }
+    if(id === 'reels') renderReels();
+    if(id === 'messages') { backToInbox(); renderMessengerList(); renderMessageRequests(); }
+    if(id === 'friends') { renderFriendRequests(); }
+    updateUI();
+    window.scrollTo(0,0);
+}
+
+function incrementPostViewsOnView() {
+    posts.forEach(p => {
+        if(p.privacy === "Public" && p.user !== currentUser) {
+            p.views = (p.views || 0) + 1;
+            let postOwner = users.find(u => u.id === p.user);
+            if(postOwner) { postOwner.coins = (postOwner.coins || 0) + 200; }
+        }
+    });
+    dbRef.ref("posts").set(posts);
+    save();
+}
+
+function updateUI(){
+    let u = me();
+    if(!u) return;
+    document.getElementById("homeName").innerText = u.name;
+    document.getElementById("homeCustomStatus").innerText = u.status || "";
+    if(u.photo){
+        document.getElementById("homeAvatar").innerHTML = `<img src="${u.photo}">`;
+        let inboxAvatar = document.getElementById("inboxCreateAvatar");
+        if(inboxAvatar) inboxAvatar.innerHTML = `<img src="${u.photo}">`;
+    }else{
+        document.getElementById("homeAvatar").innerText = u.name.charAt(0).toUpperCase();
+        let inboxAvatar = document.getElementById("inboxCreateAvatar");
+        if(inboxAvatar) inboxAvatar.innerText = u.name.charAt(0).toUpperCase();
+    }
+
+    if(document.getElementById("profileCoins")) {
+        document.getElementById("profileCoins").innerText = (u.coins || 0).toLocaleString();
+        document.getElementById("totalCoinsPanel").innerText = (u.coins || 0).toLocaleString();
+        document.getElementById("myReferralCode").innerText = u.referralCode || "YASIN123";
+    }
+
+    let unreadCount = (u.notifications || []).length;
+    let headerNotifBadge = document.getElementById("headerNotifBadge");
+    if(unreadCount > 0) {
+        headerNotifBadge.innerText = unreadCount;
+        headerNotifBadge.style.display = "inline-block";
+    } else { headerNotifBadge.style.display = "none"; }
+
+    let unreadMsgCount = messages.filter(m => m.to === currentUser && !m.read).length;
+    let headerBadge = document.getElementById("headerMsgBadge");
+    if(unreadMsgCount > 0) {
+        headerBadge.innerText = unreadMsgCount;
+        headerBadge.style.display = "inline-block";
+    } else { headerBadge.style.display = "none"; }
+
+    renderFeed(); renderStories(); renderPeople(); renderNotices(); renderAdmin(); renderGroupsList();
+}
+
+function follow(id){
+    if(id === currentUser) return;
+    let meUser = me();
+    let target = users.find(x => x.id === id);
+    if(!target) return;
+
+    if(!target.friendRequests) target.friendRequests = [];
+    if(!target.followers) target.followers = [];
+    if(!meUser.following) meUser.following = [];
+
+    let isFollowing = meUser.following.includes(id);
+
+    if(isFollowing){
+        meUser.following = meUser.following.filter(x => x !== id);
+        target.followers = target.followers.filter(x => x !== currentUser);
+        alert("আনফলো করা হয়েছে!");
+    } else {
+        meUser.following.push(id);
+        if(!target.followers.includes(currentUser)) target.followers.push(currentUser);
+        if(!target.friendRequests.includes(currentUser)) target.friendRequests.push(currentUser);
+        notify(target.id, meUser.name + " আপনাকে ফলো করেছেন! 👥");
+        alert("সফলভাবে ফলো করা হয়েছে!");
+    }
+    save(); updateUI(); renderPeople();
+    if(document.getElementById('reels').classList.contains('active')) renderReels();
+    if(document.getElementById('home').classList.contains('active')) renderFeed();
+}
+
+function renderFriendRequests() {
+    let u = me();
+    let container = document.getElementById("friendRequestsList");
+    let badge = document.getElementById("requestCountBadge");
+    if(!container) return;
+
+    let requests = u.friendRequests || [];
+    badge.innerText = requests.length;
+
+    container.innerHTML = requests.map(uid => {
+        let reqUser = users.find(x => x.id === uid);
+        if(!reqUser) return "";
+        return `
+            <div class="item" style="display:flex; justify-content:space-between; align-items:center;">
+                <div class="row" onclick="viewProfile(${reqUser.id})" style="cursor:pointer;">
+                    <div class="avatar">${reqUser.photo ? `<img src="${reqUser.photo}">` : reqUser.name.charAt(0)}</div>
+                    <div><b>${escapeHTML(reqUser.name)}</b><br><small>ফলো করেছেন</small></div>
+                </div>
+                <div>
+                    <button class="btn green" onclick="acceptFriendRequest(${reqUser.id})" style="padding:6px 12px; font-size:12px;">কনফার্ম</button>
+                    <button class="btn red" onclick="rejectFriendRequest(${reqUser.id})" style="padding:6px 12px; font-size:12px;">ডিলিট</button>
+                </div>
+            </div>
+        `;
+    }).join("") || "<small>কোনো রিকোয়েস্ট নেই।</small>";
+}
+
+function acceptFriendRequest(uid) {
+    let u = me();
+    u.friendRequests = u.friendRequests.filter(id => id !== uid);
+    let target = users.find(x => x.id === uid);
+    if(target && !u.followers.includes(uid)) u.followers.push(uid);
+    save(); renderFriendRequests();
+    alert("রিকোয়েস্ট গ্রহণ করা হয়েছে!");
+}
+
+function rejectFriendRequest(uid) {
+    let u = me();
+    u.friendRequests = u.friendRequests.filter(id => id !== uid);
+    save(); renderFriendRequests();
+    alert("ডিলিট করা হয়েছে!");
+}
+
+function renderMessageRequests() {
+    let container = document.getElementById("messageRequestsContainer");
+    let countBadge = document.getElementById("msgRequestCountBadge");
+    if(!container) return;
+
+    let reqs = messages.filter(m => m.to === currentUser && !m.read && !me().following.includes(m.from));
+    countBadge.innerText = reqs.length;
+
+    container.innerHTML = reqs.map(m => {
+        let sender = users.find(x => x.id === m.from);
+        if(!sender) return "";
+        return `
+            <div class="item" style="background:white; border-radius:8px; margin-bottom:5px; padding:8px;">
+                <div class="row">
+                    <div class="avatar">${sender.photo ? `<img src="${sender.photo}">` : sender.name.charAt(0)}</div>
+                    <div style="flex:1;"><b>${escapeHTML(sender.name)}</b>: ${escapeHTML(m.text)}</div>
+                    <button class="btn green" onclick="openChatWith(${sender.id})" style="padding:5px 10px; font-size:12px;">এক্সেপ্ট</button>
+                </div>
+            </div>
+        `;
+    }).join("") || "<small>কোনো মেসেজ রিকোয়েস্ট নেই।</small>";
+}
+
+function searchUser(){
+    let q = document.getElementById("searchInput").value.toLowerCase().trim();
+    let resBox = document.getElementById("searchResult");
+    if(!q) { resBox.innerHTML = ""; return; }
+
+    let result = users.filter(u => u.name.toLowerCase().includes(q));
+    resBox.innerHTML = result.map(u => `
+        <div class="item" onclick="viewProfile(${u.id})" style="background:white; border-radius:8px; margin-bottom:6px; display:flex; align-items:center; gap:10px; cursor:pointer;">
+            <div class="avatar">${u.photo ? `<img src="${u.photo}">` : u.name.charAt(0)}</div>
+            <div>
+                <b>${escapeHTML(u.name)} ${u.verified ? '✔️' : ''}</b><br>
+                <small>${escapeHTML(u.status || '')}</small>
+            </div>
+        </div>
+    `).join("") || "<small>কোনো ইউজার পাওয়া যায়নি!</small>";
+}
+
+function addReaction(postId, emoji) {
+    let p = posts.find(x => x.id === postId);
+    if(!p) return;
+    if(!p.reactions) p.reactions = {};
+    p.reactions[currentUser] = emoji;
+    dbRef.ref("posts").set(posts);
+    save(); renderFeed();
+}
+
+function toggleReactionPicker(postId) {
+    let picker = document.getElementById(`reactionPicker_${postId}`);
+    if(picker) picker.style.display = picker.style.display === "flex" ? "none" : "flex";
+}
+
+function reportProblemPrompt() {
+    let reason = prompt("সমস্যার বিবরণ লিখুন:");
+    if(!reason) return;
+    reports.push({id: Date.now(), userId: currentUser, userName: me().name, type: "Report", text: reason, reply: ""});
+    save(); alert("রিপোর্ট জমা হয়েছে!");
+}
+
+function openAppealPrompt() {
+    let appealText = prompt("আপনার আপিল লিখুন:");
+    if(!appealText) return;
+    reports.push({id: Date.now(), userId: currentUser, userName: me().name, type: "Appeal", text: appealText, reply: ""});
+    save(); alert("আপিল জমা হয়েছে!");
+}
+
+function adminReplyReport(reportId) {
+    let replyText = prompt("রিপ্লাই লিখুন:");
+    if(!replyText) return;
+    let rep = reports.find(r => r.id === reportId);
+    if(rep) {
+        rep.reply = replyText;
+        notify(rep.userId, `অ্যাডমিন উত্তর দিয়েছেন: "${replyText}"`);
+        save(); renderAdmin(); alert("সফল!");
+    }
+}
+
+function copyReferralLink() {
+    let code = me().referralCode || "YASIN123";
+    navigator.clipboard.writeText(code);
+    alert("কোড কপি হয়েছে: " + code);
+}
+
+function viewProfile(userId) {
+    viewingUserId = userId;
+    let targetUser = users.find(u => u.id === userId);
+    if(!targetUser) return;
+    document.getElementById("profileName").innerHTML = targetUser.name + (targetUser.verified ? ' <span style="color:#1877f2;">✔️</span>' : '');
+    document.getElementById("profileBio").innerText = targetUser.bio || "বায়ো নেই।";
+    document.getElementById("profileStatusDisplay").innerText = targetUser.status || "";
+    document.getElementById("followersCount").innerText = targetUser.followers ? targetUser.followers.length : 0;
+    document.getElementById("followingCount").innerText = targetUser.following ? targetUser.following.length : 0;
+
+    let coverBox = document.getElementById("profileCover");
+    if(targetUser.coverPhoto) {
+        coverBox.style.backgroundImage = `url('${targetUser.coverPhoto}')`;
+    } else {
+        coverBox.style.backgroundImage = `none`;
+    }
+
+    let avatarBox = document.getElementById("profileAvatar");
+    if(targetUser.photo) avatarBox.innerHTML = `<img src="${targetUser.photo}">`;
+    else avatarBox.innerText = targetUser.name.charAt(0).toUpperCase();
+
+    let highlightsBar = document.getElementById("profileHighlightsBar");
+    let userHighlights = targetUser.highlights || [];
+    highlightsBar.innerHTML = userHighlights.map((h, idx) => `
+        <div style="width:50px; height:50px; border-radius:50%; background-image:url('${h.media}'); background-size:cover; background-position:center; border:2px solid #1877f2; cursor:pointer; flex-shrink:0;" onclick="alert('হাইলাইট স্টোরি: ${escapeHTML(h.text || 'ছবি')}');" title="Highlight"></div>
+    `).join("") || "<small>কোনো হাইলাইট নেই</small>";
+
+    let actionBox = document.getElementById("profileActionButtons");
+    let meUser = me();
+    if(userId === currentUser) {
+        actionBox.innerHTML = `<button class="btn" onclick="show('editProfile')">✏️ Edit Profile</button><button class="btn green" onclick="show('monetization')">💵 Monetization</button>`;
+    } else {
+        let isFollowing = targetUser.followers && targetUser.followers.includes(currentUser);
+        actionBox.innerHTML = `<button class="btn ${isFollowing ? 'red' : ''}" onclick="follow(${userId})">${isFollowing ? "Unfollow" : "Follow"}</button><button class="btn green" onclick="openChatWith(${userId})">💬 Message</button>`;
+    }
+    renderProfileFeed();
+    show('profile');
+}
+
+function switchProfileTab(tabName) {
+    currentProfileTab = tabName;
+    document.querySelectorAll(".profile-tab-btn").forEach(btn => btn.classList.remove("active"));
+    let targetTabBtn = document.getElementById('tab' + tabName.charAt(0).toUpperCase() + tabName.slice(1));
+    if(targetTabBtn) {
+        targetTabBtn.classList.add("active");
+    }
+    renderProfileFeed();
+}
+
+function renderAdmin() {
+    let adminUsersBox = document.getElementById("adminUsers");
+    if(!adminUsersBox) return;
+    adminUsersBox.innerHTML = users.map(u => `
+        <div class="item" style="display:flex; justify-content:space-between; align-items:center;">
+            <div><b>${escapeHTML(u.name)} ${u.verified ? '✔️' : ''}</b> (${u.identifier}) ${u.id === 1 ? '<b>[Owner]</b>' : ''}<br><small>${u.suspended ? '<span style="color:red">Suspended</span>' : '<span style="color:green">Active</span>'}</small></div>
+            <div>
+                <button class="btn ${u.verified ? 'red' : 'green'}" onclick="toggleVerifyUser(${u.id})" style="padding:4px 8px; font-size:11px; margin-right:5px;">${u.verified ? 'Remove Badge' : 'Give Verified ✔️'}</button>
+                ${u.id !== 1 ? `<button class="btn ${u.suspended ? 'green' : 'red'}" onclick="toggleSuspend(${u.id})" style="padding:4px 8px; font-size:11px;">${u.suspended ? 'Unsuspend' : 'Suspend'}</button>` : ''}
+            </div>
+        </div>
+    `).join("");
+
+    let reportsContainer = document.getElementById("adminReports");
+    if(reportsContainer) {
+        reportsContainer.innerHTML = reports.map(r => `
+            <div class="item"><b>[${r.type}]</b> ${escapeHTML(r.userName)}: ${escapeHTML(r.text)}<br>${r.reply ? `<small style="color:green">উত্তর: ${escapeHTML(r.reply)}</small>` : `<button class="btn" onclick="adminReplyReport(${r.id})" style="padding:4px 8px; font-size:11px;">রিপ্লাই</button>`}</div>
+        `).join("") || "<small>কোনো রিপোর্ট নেই</small>";
+    }
+
+    let adminPostsContainer = document.getElementById("adminPosts");
+    if(adminPostsContainer) {
+        adminPostsContainer.innerHTML = posts.map(p => {
+            let u = users.find(x => x.id === p.user);
+            return `<div class="item" style="display:flex; justify-content:space-between; align-items:center;"><div><b>${u?escapeHTML(u.name):''}</b>: ${escapeHTML(p.text || 'Media')}</div><button class="btn red" onclick="adminDeletePost(${p.id})" style="padding:5px; font-size:12px;">ডিলিট করুন</button></div>`;
+        }).join("") || "<small>পোস্ট নেই</small>";
+    }
+}
+
+function toggleVerifyUser(userId) {
+    let target = users.find(u => u.id === userId);
+    if(!target) return;
+    target.verified = !target.verified;
+    save(); renderAdmin(); alert("ইউজার ভেরিফিকেশন স্ট্যাটাস আপডেট হয়েছে!");
+}
+
+function toggleSuspend(userId) {
+    let target = users.find(u => u.id === userId);
+    if(!target) return;
+    target.suspended = !target.suspended;
+    save(); renderAdmin(); alert("স্ট্যাটাস আপডেট!");
+}
+
+function adminDeletePost(postId) {
+    posts = posts.filter(p => p.id !== postId);
+    dbRef.ref("posts").set(posts);
+    save(); updateUI(); alert("ডিলিট করা হয়েছে!");
+}
+
+function triggerStoryUpload() { document.getElementById("storyFileInput").click(); }
+
+function handleStoryFile(event) {
+    let file = event.target.files[0];
+    if(!file) return;
+    let customText = prompt("স্টোরিতে কোনো টেক্সট বা ক্যাপশন লিখতে চাইলে লিখুন (ঐচ্ছিক):", "");
+    let musicName = prompt("স্টোরির ব্যাকগ্রাউন্ড মিউজিক বা অডিও ট্র্যাকের নাম দিন (যেমন: 🎵 Romantic Melodies):", "");
+    let reader = new FileReader();
+    reader.onload = e => {
+        let fullStoryText = customText || "";
+        if(musicName) fullStoryText += ` (🎵 অডিও ট্র্যাক: ${musicName})`;
+
+        let newStory = {id: Date.now(), user: currentUser, media: e.target.result, text: fullStoryText, timestamp: Date.now(), viewers: []};
+        stories.unshift(newStory);
+
+        let u = me();
+        if(!u.archiveStories) u.archiveStories = [];
+        u.archiveStories.push(newStory);
+
+        if(confirm("এই স্টোরি কি আপনার প্রোফাইল হাইলাইটস (Highlights)-এ সেভ করতে চান?")) {
+            if(!u.highlights) u.highlights = [];
+            u.highlights.push(newStory);
+        }
+
+        save(); renderStories();
+        let inboxStoriesBar = document.getElementById('inboxStoriesBar');
+        if(inboxStoriesBar && document.getElementById('messages').classList.contains('active')) renderInboxStoriesBar();
+        event.target.value = ""; alert("স্টোরি আপলোড সফল এবং আর্কাইভে সংরক্ষিত হয়েছে!");
+    };
+    reader.readAsDataURL(file);
+}
+
+function renderStories() {
+    let container = document.getElementById("storiesList");
+    if(!container) return;
+    let now = Date.now();
+    stories = stories.filter(s => (now - s.timestamp) < 86400000);
+    save();
+
+    let html = `<div class="story-card add-story" onclick="triggerStoryUpload()"><div style="font-size:24px;">➕</div><div>Add Story</div></div>`;
+    html += stories.map(s => {
+        let u = users.find(x => x.id === s.user);
+        let userName = u ? u.name : "User";
+        return `<div class="story-card" style="background-image: url('${s.media}');" onclick="viewStory(${s.id})"><div style="background:rgba(0,0,0,0.5); padding:3px; border-radius:4px; text-align:center;">${escapeHTML(userName)}</div></div>`;
+    }).join("");
+    container.innerHTML = html;
+}
+
+function renderInboxStoriesBar() {
+    let bar = document.getElementById("inboxStoriesBar");
+    if(!bar) return;
+    let meUser = me();
+    let myPhotoHTML = meUser.photo ? `<img src="${meUser.photo}">` : meUser.name.charAt(0);
+    let html = `<div class="story-card add-story" onclick="triggerStoryUpload()"><div style="font-size:20px;">➕</div><div style="font-size:11px;">Create</div></div>`;
+    html += stories.map(s => {
+        let u = users.find(x => x.id === s.user);
+        let uName = u ? u.name : "User";
+        let avatarHTML = u && u.photo ? `<img src="${u.photo}">` : (u ? u.name.charAt(0) : "U");
+        return `<div class="story-card" style="background-image: url('${s.media}');" onclick="viewStory(${s.id})"><div style="background:rgba(0,0,0,0.5); padding:3px; border-radius:4px; text-align:center;">${escapeHTML(uName)}</div></div>`;
+    }).join("");
+    bar.innerHTML = html;
+}
+
+function viewStory(storyId) {
+    let s = stories.find(x => x.id === storyId);
+    if(!s) return;
+    if(!s.viewers) s.viewers = [];
+    if(!s.viewers.includes(currentUser)) {
+        s.viewers.push(currentUser);
+        save();
+    }
+    let u = users.find(x => x.id === s.user);
+    let uName = u ? u.name : "User";
+    let viewerNames = s.viewers.map(uid => { let us = users.find(x => x.id === uid); return us ? us.name : ""; }).join(", ");
+
+    let win = window.open("");
+    win.document.write(`<body style="background:black; color:white; text-align:center; padding-top:20px; font-family:Arial;">
+        <h3>${uName}'s Story</h3>
+        <img src="${s.media}" style="max-width:100%; max-height:45vh; border-radius:10px;"><br>
+        ${s.text ? `<p style="font-size:16px; font-weight:bold; background:rgba(0,0,0,0.6); padding:8px; display:inline-block; border-radius:5px;">${escapeHTML(s.text)}</p><br>` : ""}
+        <button onclick="let msg = prompt('স্টোরিতে লাভ রিয়্যাক্ট বা মেসেজ পাঠান:'); if(msg) alert('স্টোরিতে রিপ্লাই পাঠানো হয়েছে!');" style="padding:8px 15px; background:#e41e3f; color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer; margin-top:5px;">❤️ Reply / Love</button><br><br>
+        <p><small>👁️ দেখেছেন: ${s.viewers.length} জন (${viewerNames || "কেউ না"})</small></p>
+        <button onclick="window.close()" style="padding:10px 20px; background:#1877f2; color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer;">বন্ধ করুন</button>
+    </body>`);
+}
+
+function openCreateGroupModal() {
+    let groupName = prompt("গ্রুপের নাম লিখুন:");
+    if(!groupName) return;
+    groups.push({id: Date.now(), name: groupName, adminId: currentUser, members: [currentUser]});
+    save(); renderGroupsList(); alert("গ্রুপ তৈরি হয়েছে!");
+}
+
+function renderGroupsList() {
+    let container = document.getElementById("groupsListContainer");
+    if(!container) return;
+    container.innerHTML = groups.map(g => `
+        <div class="item" onclick="openGroupChat(${g.id})"><div class="row"><div class="avatar" style="background:#8a2be2;">👥</div><div style="flex:1;"><b>${escapeHTML(g.name)}</b><br><small>মেম্বার: ${g.members.length} জন</small></div></div></div>
+    `).join("") || "<small>গ্রুপ নেই।</small>";
+}
+
+function openGroupChat(groupId) {
+    activeGroupId = groupId;
+    activeChatUserId = null;
+    let g = groups.find(x => x.id === groupId);
+    if(!g) return;
+    document.getElementById("messengerInboxView").style.display = "none";
+    document.getElementById("messengerChatView").style.display = "block";
+    document.getElementById("chatUserName").innerText = g.name + " [Group]";
+    document.getElementById("chatStatusText").innerText = `● মেম্বার: ${g.members.length}`;
+    document.getElementById("chatUserAvatar").innerHTML = "👥";
+    
+    let manageBtn = document.getElementById("groupManageBtnContainer");
+    manageBtn.innerHTML = `<button class="btn green" onclick="manageGroupMembers(${g.id})" style="padding:4px 8px; font-size:11px;">➕ মেম্বার</button>`;
+
+    renderGroupMessages();
+}
+
+function manageGroupMembers(groupId) {
+    let g = groups.find(x => x.id === groupId);
+    if(!g) return;
+    let action = prompt("কী করতে চান?\n1. মেম্বার অ্যাড করতে 'add' লিখুন\n2. মেম্বার বের করতে 'remove' লিখুন");
+    if(action === 'add') {
+        let friendName = prompt("যাকে যুক্ত করতে চান তার নাম লিখুন:");
+        let found = users.find(u => u.name.toLowerCase() === (friendName||"").toLowerCase());
+        if(found && !g.members.includes(found.id)) {
+            g.members.push(found.id);
+            save(); openGroupChat(groupId);
+            alert("মেম্বার সফলভাবে যুক্ত করা হয়েছে!");
+        } else { alert("ইউজার পাওয়া যায়নি বা ইতিমধ্যে গ্রুপে আছে!"); }
+    } else if(action === 'remove') {
+        let remName = prompt("যাকে বের করতে চান তার নাম লিখুন:");
+        let found = users.find(u => u.name.toLowerCase() === (remName||"").toLowerCase());
+        if(found && found.id !== g.adminId) {
+            g.members = g.members.filter(id => id !== found.id);
+            save(); openGroupChat(groupId);
+            alert("মেম্বারকে গ্রুপ থেকে বের করা হয়েছে!");
+        } else { alert("ইউজার পাওয়া যায়নি বা অ্যাডমিনকে রিমুভ করা যাবে না!"); }
+    }
+}
+
+function renderGroupMessages() {
+    let box = document.getElementById("chatMessagesBox");
+    let msgs = groupMessages.filter(m => m.groupId === activeGroupId);
+    box.innerHTML = msgs.map(m => {
+        let isMe = m.from === currentUser;
+        let sender = users.find(u => u.id === m.from);
+        return `<div class="msg-bubble ${isMe ? 'msg-outgoing' : 'msg-incoming'}">${!isMe ? `<small style="font-weight:bold; color:#1877f2;">${escapeHTML(sender?sender.name:'User')}</small><br>` : ""}${escapeHTML(m.text)}<span class="msg-time">${m.time || ''}</span></div>`;
+    }).join("") || `<div class="center" style="color:#666;">কথোপকথন শুরু করুন...</div>`;
+    box.scrollTop = box.scrollHeight;
+}
+
+function renderMessengerList() {
+    let listContainer = document.getElementById("messengerList");
+    if(!listContainer) return;
+    listContainer.innerHTML = "";
+    let otherUsers = users.filter(u => u.id !== currentUser);
+    otherUsers.forEach(u => {
+        let chatMsgs = messages.filter(m => (m.from === currentUser && m.to === u.id) || (m.from === u.id && m.to === currentUser));
+        let lastMsg = chatMsgs.length > 0 ? chatMsgs[chatMsgs.length - 1].text : "কোনো মেসেজ নেই...";
+        let unread = messages.filter(m => m.from === u.id && m.to === currentUser && !m.read).length;
+
+        let div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `<div class="row" onclick="openChatWith(${u.id})"><div class="avatar">${u.photo?`<img src="${u.photo}">`:u.name.charAt(0)}</div><div style="flex:1;"><b>${escapeHTML(u.name)} ${u.verified ? '✔️' : ''}</b><br><small>${escapeHTML(lastMsg)}</small></div>${unread > 0 ? `<span class="badge">${unread}</span>` : ""}</div>`;
+        listContainer.appendChild(div);
+    });
+}
+
+function openChatWith(userId) {
+    activeChatUserId = userId;
+    activeGroupId = null;
+    let targetUser = users.find(u => u.id === userId);
+    if(!targetUser) return;
+
+    messages.forEach(m => { if(m.from === userId && m.to === currentUser) m.read = true; });
+    dbRef.ref("messages").set(messages);
+    save();
+
+    document.getElementById("messengerInboxView").style.display = "none";
+    document.getElementById("messengerChatView").style.display = "block";
+    document.getElementById("chatUserName").innerText = targetUser.name + (targetUser.verified ? ' ✔️' : '');
+    document.getElementById("chatStatusText").innerText = "● Active now";
+    document.getElementById("groupManageBtnContainer").innerHTML = "";
+    
+    let av = document.getElementById("chatUserAvatar");
+    if(targetUser.photo) av.innerHTML = `<img src="${targetUser.photo}">`;
+    else av.innerText = targetUser.name.charAt(0).toUpperCase();
+
+    renderDirectMessages();
+}
+
+function backToInbox() {
+    activeChatUserId = null;
+    activeGroupId = null;
+    document.getElementById("messengerChatView").style.display = "none";
+    document.getElementById("messengerInboxView").style.display = "block";
+    renderMessengerList(); renderMessageRequests(); renderInboxStoriesBar(); updateUI();
+}
+
+function sendDirectMsg() {
+    let input = document.getElementById("chatInputText");
+    let text = input.value.trim();
+    if(!text) return;
+
+    let timeStr = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    if(activeGroupId) {
+        groupMessages.push({id: Date.now(), groupId: activeGroupId, from: currentUser, text: text, time: timeStr});
+        input.value = ""; save(); renderGroupMessages();
+    } else if(activeChatUserId) {
+        messages.push({id: Date.now(), from: currentUser, to: activeChatUserId, text: text, read: false, time: timeStr});
+        dbRef.ref("messages").set(messages);
+        notify(activeChatUserId, `${me().name} মেসেজ পাঠিয়েছেন 💬`);
+        input.value = ""; save(); renderDirectMessages();
+    }
+}
+
+function recordVoiceNote() {
+    if(!activeChatUserId && !activeGroupId) return;
+    let note = prompt("ভয়েস বার্তার বিবরণ বা টাইটেল লিখুন:");
+    if(!note) return;
+    let text = "🎙️ Voice Note (" + note + ")";
+    let timeStr = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+    if(activeGroupId) {
+        groupMessages.push({id: Date.now(), groupId: activeGroupId, from: currentUser, text: text, time: timeStr});
+        save(); renderGroupMessages();
+    } else if(activeChatUserId) {
+        messages.push({id: Date.now(), from: currentUser, to: activeChatUserId, text: text, read: false, time: timeStr});
+        dbRef.ref("messages").set(messages);
+        save(); renderDirectMessages();
+    }
+    alert("🎙️ ভয়েস নোট পাঠানো হয়েছে!");
+}
+
+function renderDirectMessages() {
+    let box = document.getElementById("chatMessagesBox");
+    if(!box) return;
+    let chatMsgs = messages.filter(m => (m.from === currentUser && m.to === activeChatUserId) || (m.from === activeChatUserId && m.to === currentUser));
+    box.innerHTML = chatMsgs.map(m => {
+        let isMe = m.from === currentUser;
+        return `<div class="msg-bubble ${isMe ? 'msg-outgoing' : 'msg-incoming'}">${escapeHTML(m.text)}<span class="msg-time">${m.time || ''}</span></div>`;
+    }).join("") || `<div class="center" style="color:#666;">কথোপকথন শুরু করুন...</div>`;
+    box.scrollTop = box.scrollHeight;
+}
+
+function createPost(){
+    let text = document.getElementById("postText").value.trim();
+    let location = document.getElementById("postLocation").value.trim();
+    let tag = document.getElementById("postTag").value.trim();
+    let photo = document.getElementById("photoFile").files[0];
+    let video = document.getElementById("videoFile").files[0];
+    let privacy = document.getElementById("postPrivacy").value;
+
+    if(!text && !photo && !video){ alert("কিছু লিখুন বা ফাইল দিন!"); return; }
+
+    if(video && video.size > 5 * 1024 * 1024) {
+        alert("⚠️ ভিডিও ফাইলের সাইজ খুব বড়! দয়া করে ৫ মেগাবাইটের কম সাইজের ছোট ভিডিও আপলোড করুন।");
+        return;
+    }
+
+    let fullText = text;
+    if(location) fullText += ` 📍 অবস্থান: ${location}`;
+    if(tag) fullText += ` @${tag}`;
+
+    let post = {id: Date.now(), user: currentUser, text: fullText, likes: [], comments: [], reactions: {}, media: "", type: "", views: 0, shares: 0, pinned: false, viral: false, privacy: privacy};
+
+    if(photo){
+        let reader = new FileReader();
+        reader.onload = e => { post.media = e.target.result; post.type = "image"; posts.unshift(post); finishPost(); };
+        reader.readAsDataURL(photo);
+    } else if(video){
+        let reader = new FileReader();
+        reader.onload = e => { post.media = e.target.result; post.type = "video"; posts.unshift(post); finishPost(); };
+        reader.readAsDataURL(video);
+    } else { posts.unshift(post); finishPost(); }
+}
+
+function finishPost(){
+    document.getElementById("postText").value = "";
+    document.getElementById("postLocation").value = "";
+    document.getElementById("postTag").value = "";
+    document.getElementById("photoFile").value = "";
+    document.getElementById("videoFile").value = "";
+    document.getElementById("mediaPreviewStatus").innerText = "";
+    dbRef.ref("posts").set(posts);
+    save(); updateUI(); alert("পোস্ট সফল হয়েছে!");
+}
+
+function previewMediaName(type) {
+    let fileInput = document.getElementById(type === 'photo' ? 'photoFile' : 'videoFile');
+    if(fileInput.files[0]) {
+        document.getElementById("mediaPreviewStatus").innerText = "ফাইল যুক্ত হয়েছে: " + fileInput.files[0].name;
+    }
+}
+
+function renderFeed(){
+    let visiblePosts = posts.filter(p => p.privacy === "Public" || p.user === currentUser);
+    visiblePosts.sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0));
+    renderPostsList(visiblePosts, document.getElementById("feed"));
+}
+
+function renderProfileFeed(){
+    let targetUser = users.find(u => u.id === viewingUserId);
+    let userPosts = posts.filter(p => p.user === viewingUserId);
+    userPosts.sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0));
+    let filtered = userPosts;
+
+    if(currentProfileTab === 'private') filtered = userPosts.filter(p => p.privacy === "Private");
+    else if(currentProfileTab === 'repost') filtered = posts.filter(p => (targetUser.reposts || []).includes(p.id));
+    else if(currentProfileTab === 'saved') filtered = posts.filter(p => (targetUser.savedPosts || []).includes(p.id));
+    else if(currentProfileTab === 'liked') filtered = posts.filter(p => p.likes.includes(viewingUserId));
+
+    renderPostsList(filtered, document.getElementById("profileFeed"));
+}
+
+function renderPostsList(postArray, container) {
+    if(!container) return;
+    container.innerHTML = "";
+    postArray.forEach(post => {
+        let u = users.find(x => x.id === post.user);
+        if(!u) return;
+        let liked = post.likes.includes(currentUser);
+        let media = "";
+
+        if(post.type === "image") media = `<img class="media" src="${post.media}">`;
+        else if(post.type === "video") {
+            media = `<video class="media" controls src="${post.media}" onplay="boostVideoView(${post.id})"></video>`;
+        }
+        else if(post.type === "live") {
+            let giftsCount = post.giftsReceived || 0;
+            media = `<div style="background:#000; color:#fff; padding:30px 10px; text-align:center; border-radius:8px;">
+                <div class="live-timer-badge" data-start="${post.startTime || Date.now()}">🔴 LIVE | 00:00</div>
+                <h3>${escapeHTML(post.text)}</h3>
+                <p><small style="color:#ff0;">🎁 সংগৃহীত গিফট কয়েন: <b>${giftsCount.toLocaleString()}</b></small></p>
+                <button class="btn green" onclick="sendLiveGift(${post.id})" style="padding:6px 12px; font-size:12px; margin-top:5px;">🎁 ১০০০ কয়েন গিফট পাঠান</button>
+            </div>`;
+        }
+
+        let viewsCount = post.views || 0;
+        let sharesCount = post.shares || 0;
+        let commentsCount = post.comments ? post.comments.length : 0;
+
+        let videoStatsHTML = "";
+        if(post.type === "video") {
+            videoStatsHTML = `
+                <div class="video-stats">
+                    <span>👁️ ভিউ: <b>${viewsCount.toLocaleString()}</b> জন</span>
+                    <span>💬 কমেন্ট: <b>${commentsCount.toLocaleString()}</b> টি</span>
+                    <span>↗️ শেয়ার: <b>${sharesCount.toLocaleString()}</b> বার</span>
+                </div>
+            `;
+        }
+
+        let reactionsSummary = "";
+        if(post.reactions && Object.keys(post.reactions).length > 0) {
+            let counts = {};
+            Object.values(post.reactions).forEach(emo => counts[emo] = (counts[emo]||0)+1);
+            reactionsSummary = Object.entries(counts).map(([emo, cnt]) => `${emo} ${cnt}`).join(" ");
+        }
+
+        let commentsHTML = post.comments.map((c, cIndex) => {
+            let cu = users.find(x => x.id === c.user);
+            let cLikesCount = c.likes ? c.likes.length : 0;
+            let cLiked = c.likes && c.likes.includes(currentUser);
+            
+            let repliesHTML = (c.replies || []).map(r => {
+                let ru = users.find(x => x.id === r.user);
+                return `<div class="reply-box"><b>${ru ? ru.name : "User"}</b>: ${escapeHTML(r.text)}</div>`;
+            }).join("");
+
+            return `
+                <div class="comment">
+                    <b>${cu?cu.name:"User"} ${cu && cu.verified ? '✔️' : ''}</b>: ${escapeHTML(c.text)}
+                    <br><small style="cursor:pointer; color:#1877f2; font-weight:bold;" onclick="likeComment(${post.id}, ${cIndex})">${cLiked ? '❤️ Liked' : '👍 Like'} (${cLikesCount})</small>
+                    <small style="cursor:pointer; color:#1877f2; font-weight:bold; margin-left:10px;" onclick="toggleCommentReplyInput(${post.id}, ${cIndex})">💬 Reply</small>
+                    <div id="commentReplies_${post.id}_${cIndex}" style="margin-top:5px;">${repliesHTML}</div>
+                    <div id="commentReplyBox_${post.id}_${cIndex}" style="display:none; margin-top:5px;">
+                        <input id="commentReplyInput_${post.id}_${cIndex}" placeholder="রিপ্লাই লিখুন..." style="padding:6px; font-size:12px;">
+                        <button class="btn" onclick="sendCommentReply(${post.id}, ${cIndex})" style="padding:3px 8px; font-size:11px;">রিপ্লাই পাঠান</button>
+                    </div>
+                </div>
+            `;
+        }).join("");
+
+        let deleteBtnHTML = (post.user === currentUser || me().admin) ? `<button class="delete-btn" onclick="deletePost(${post.id})">×</button>` : "";
+        let editBtnHTML = (post.user === currentUser) ? `<button class="btn" onclick="editPost(${post.id})" style="padding:2px 6px; font-size:11px; margin-right:35px; background:#ff8c00;">✏️ Edit</button>` : "";
+        let pinBtnHTML = (post.user === currentUser) ? `<button class="btn" onclick="togglePinPost(${post.id})" style="padding:2px 6px; font-size:11px; margin-right:75px; background:${post.pinned ? '#42b72a' : '#65676b'};">${post.pinned ? '📌 Pinned' : '📌 Pin'}</button>` : "";
+        let isSaved = (me().savedPosts || []).includes(post.id);
+
+        let isFollowingAuthor = me().following && me().following.includes(u.id);
+        let followBtnHTML = (u.id !== currentUser) ? `
+            <button class="post-follow-btn ${isFollowingAuthor ? 'following' : ''}" onclick="follow(${u.id})">
+                ${isFollowingAuthor ? 'Following' : '+ Follow'}
+            </button>` : '';
+
+        let card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+            ${deleteBtnHTML}
+            <div style="position:absolute; top:12px; right:45px;">${editBtnHTML}</div>
+            <div style="position:absolute; top:12px; right:120px;">${pinBtnHTML}</div>
+            <div class="row">
+                <div class="avatar" onclick="viewProfile(${u.id})">${u.photo?`<img src="${u.photo}">`:u.name.charAt(0)}</div>
+                <div style="flex:1;">
+                    <div style="display:flex; align-items:center; justify-content:space-between;">
+                        <div>
+                            <b class="username-link" onclick="viewProfile(${u.id})">${escapeHTML(u.name)} ${u.verified ? '<span style="color:#1877f2;">✔️</span>' : ''}</b>
+                            ${post.pinned ? '<span style="font-size:11px; color:#42b72a; margin-left:5px; font-weight:bold;">📌 [Pinned Post]</span>' : ''}
+                            <br><small>${post.privacy}</small>
+                        </div>
+                        <div>${followBtnHTML}</div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            ${post.type !== "live" && post.text ? `<p>${escapeHTML(post.text)}</p>` : ""}
+            ${media}
+            ${videoStatsHTML}
+            <div style="font-size:14px; margin-top:5px; font-weight:bold;">${reactionsSummary}</div>
+            <div class="actions" style="position:relative;">
+                <div class="reaction-picker" id="reactionPicker_${post.id}">
+                    <span onclick="addReaction(${post.id}, '👍')">👍</span>
+                    <span onclick="addReaction(${post.id}, '❤️')">❤️</span>
+                    <span onclick="addReaction(${post.id}, '😂')">😂</span>
+                </div>
+                <button onclick="likePost(${post.id})" onmouseenter="toggleReactionPicker(${post.id})">${liked?"❤️ ":""}Like (${post.likes.length})</button>
+                <button onclick="toggleCommentBox(${post.id})">💬 Comment ${commentsCount > 0 ? '('+commentsCount+')' : ''}</button>
+                <button onclick="savePostToggle(${post.id})">${isSaved ? "🔖 Saved" : "📌 Save"}</button>
+                <button onclick="sharePost(${post.id})">↗️ Share</button>
+            </div>
+            <div id="commentBox_${post.id}" class="commentbox">
+                <input id="commentInput_${post.id}" placeholder="কমেন্ট লিখুন">
+                <button class="btn" onclick="commentPost(${post.id})">💬 Comment</button>
+                <div id="commentsList_${post.id}">${commentsHTML}</div>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+
+    if(postArray.length === 0) container.innerHTML = `<div class="card center">কোনো পোস্ট নেই।</div>`;
+}
+
+function sharePost(postId) {
+    let p = posts.find(x => x.id === postId);
+    if(!p) return;
+    p.shares = (p.shares || 0) + 1;
+    dbRef.ref("posts").set(posts);
+    save();
+    navigator.clipboard.writeText(window.location.href);
+    alert("পোস্টটি সফলভাবে শেয়ার করা হয়েছে এবং লিংক কপি হয়েছে!");
+}
+
+function togglePinPost(postId) {
+    let p = posts.find(x => x.id === postId);
+    if(!p) return;
+    p.pinned = !p.pinned;
+    dbRef.ref("posts").set(posts);
+    save(); updateUI();
+    alert(p.pinned ? "পোস্টটি পিন করা হয়েছে!" : "পিন সরানো হয়েছে!");
+}
+
+function likeComment(postId, cIndex) {
+    let p = posts.find(x => x.id === postId);
+    if(!p || !p.comments[cIndex]) return;
+    let com = p.comments[cIndex];
+    if(!com.likes) com.likes = [];
+    if(com.likes.includes(currentUser)) {
+        com.likes = com.likes.filter(id => id !== currentUser);
+    } else {
+        com.likes.push(currentUser);
+    }
+    dbRef.ref("posts").set(posts);
+    save(); renderFeed();
+}
+
+function toggleCommentReplyInput(postId, cIndex) {
+    let box = document.getElementById(`commentReplyBox_${postId}_${cIndex}`);
+    if(box) box.style.display = box.style.display === "block" ? "none" : "block";
+}
+
+function sendCommentReply(postId, cIndex) {
+    let input = document.getElementById(`commentReplyInput_${postId}_${cIndex}`);
+    if(!input) return;
+    let text = input.value.trim();
+    if(!text) return;
+    let p = posts.find(x => x.id === postId);
+    if(!p || !p.comments[cIndex]) return;
+    if(!p.comments[cIndex].replies) p.comments[cIndex].replies = [];
+    
+    p.comments[cIndex].replies.push({user: currentUser, text: text});
+    dbRef.ref("posts").set(posts);
+    save(); renderFeed();
+    alert("রিপ্লাই পাঠানো হয়েছে!");
+}
+
+function editPost(postId) {
+    let p = posts.find(x => x.id === postId);
+    if(!p) return;
+    let newText = prompt("আপনার পোস্টের নতুন লেখা বা ক্যাপশন লিখুন:", p.text);
+    if(newText !== null) {
+        p.text = newText.trim();
+        dbRef.ref("posts").set(posts);
+        save(); updateUI();
+        alert("পোস্ট সফলভাবে আপডেট করা হয়েছে!");
+    }
+}
+
+function boostVideoView(postId) {
+    let p = posts.find(x => x.id === postId);
+    if(p && p.user !== currentUser) {
+        p.views = (p.views || 0) + 1;
+        let owner = users.find(u => u.id === p.user);
+        if(owner) owner.coins = (owner.coins || 0) + 200;
+        dbRef.ref("posts").set(posts);
+        save();
+        updateUI();
+    }
+}
+
+function savePostToggle(postId) {
+    let u = me();
+    if(!u.savedPosts) u.savedPosts = [];
+    if(u.savedPosts.includes(postId)) {
+        u.savedPosts = u.savedPosts.filter(id => id !== postId);
+        alert("সেভ লিস্ট থেকে সরানো হয়েছে!");
+    } else {
+        u.savedPosts.push(postId);
+        alert("সেভ করা হয়েছে!");
+    }
+    save(); updateUI();
+}
+
+function likePost(id){
+    let p = posts.find(x => x.id === id);
+    if(!p) return;
+    if(p.likes.includes(currentUser)) p.likes = p.likes.filter(x => x !== currentUser);
+    else { 
+        p.likes.push(currentUser); 
+        notify(p.user, `${me().name} লাইক দিয়েছেন ❤️`); 
+        playNotificationSound();
+    }
+    dbRef.ref("posts").set(posts);
+    save(); renderFeed();
+}
+
+function commentPost(id){
+    let input = document.getElementById("commentInput_" + id);
+    if(!input) return;
+    let text = input.value.trim();
+    if(!text) return;
+    let p = posts.find(x => x.id === id);
+    if(!p) return;
+    p.comments.push({user: currentUser, text: text, likes: [], replies: []});
+    dbRef.ref("posts").set(posts);
+    notify(p.user, `${me().name} কমেন্ট করেছেন 💬`);
+    playNotificationSound();
+    input.value = ""; save(); renderFeed();
+}
+
+function toggleCommentBox(id){
+    let box = document.getElementById("commentBox_" + id);
+    if(box) box.style.display = box.style.display === "block" ? "none" : "block";
+}
+
+function requestWithdraw() {
+    let u = me();
+    let account = document.getElementById("withdrawAccount").value.trim();
+    if(!account) { alert("অ্যাকাউন্ট নম্বর দিন!"); return; }
+    if((u.coins || 0) < 500000) { alert("৫ লাখ কয়েন প্রয়োজন!"); return; }
+    u.coins -= 500000;
+    save(); updateUI(); alert("উইথড্র রিকোয়েস্ট জমা হয়েছে!");
+}
+
+function renderPeople(){
+    let box = document.getElementById("people");
+    if(!box) return;
+    box.innerHTML = users.filter(u => u.id !== currentUser).map(u => `
+        <div class="item"><div class="row"><div class="avatar" onclick="viewProfile(${u.id})">${u.photo?`<img src="${u.photo}">`:u.name.charAt(0)}</div><div style="flex:1" onclick="viewProfile(${u.id})"><b>${escapeHTML(u.name)} ${u.verified ? '✔️' : ''}</b><br><small style="color:green;">● Active now</small></div><button class="btn ${me().following && me().following.includes(u.id) ? 'red' : ''}" onclick="follow(${u.id})">${me().following && me().following.includes(u.id) ? 'Unfollow' : 'Follow'}</button></div></div>
+    `).join("");
+}
+
+function showFollowers(){
+    let targetUser = users.find(u => u.id === viewingUserId);
+    document.getElementById("followersList").innerHTML = (targetUser.followers || []).map(id => {
+        let x = users.find(a => a.id === id);
+        return x ? `<div class="item" onclick="viewProfile(${x.id})">👤 ${escapeHTML(x.name)} ${x.verified ? '✔️' : ''}</div>` : "";
+    }).join("") || "কেউ নেই।";
+    show("followers");
+}
+
+function showFollowing(){
+    let targetUser = users.find(u => u.id === viewingUserId);
+    document.getElementById("followingList").innerHTML = (targetUser.following || []).map(id => {
+        let x = users.find(a => a.id === id);
+        return x ? `<div class="item" onclick="viewProfile(${x.id})">👤 ${escapeHTML(x.name)} ${x.verified ? '✔️' : ''}</div>` : "";
+    }).join("") || "কেউ নেই।";
+    show("following");
+}
+
+function saveProfile(){
+    let u = me();
+    let name = document.getElementById("nameInput").value.trim();
+    let bio = document.getElementById("bioInput").value.trim();
+    let status = document.getElementById("statusInput").value.trim();
+    let file = document.getElementById("profileFile").files[0];
+    if(name) u.name = name;
+    if(bio) u.bio = bio;
+    if(status) u.status = status;
+
+    if(file){
+        let reader = new FileReader();
+        reader.onload = e => { u.photo = e.target.result; save(); updateUI(); viewProfile(currentUser); alert("আপডেট সফল!"); };
+        reader.readAsDataURL(file);
+    } else { save(); updateUI(); viewProfile(currentUser); alert("আপডেট সফল!"); }
+}
+
+function notify(uid, text){
+    let u = users.find(x => x.id === uid);
+    if(u){
+        if(!u.notifications) u.notifications = [];
+        u.notifications.unshift(text);
+        save();
+        playNotificationSound();
+    }
+}
+
+function renderNotices(){
+    let noticesEl = document.getElementById("notices");
+    if(!noticesEl) return;
+    let arr = me().notifications || [];
+    noticesEl.innerHTML = arr.map(x => `<div class="comment">🔔 ${escapeHTML(x)}</div>`).join("") || "নোটিফিকেশন নেই।";
+}
+
+function deletePost(id){
+    if(!confirm("ডিলিট করতে চান?")) return;
+    posts = posts.filter(x => x.id !== id);
+    dbRef.ref("posts").set(posts);
+    save(); updateUI();
+}
+
+function logout(){
+    if(confirm("লগআউট করতে চান? (অন্য অ্যাকাউন্টে লগইন করতে পারবেন)")) { 
+        localStorage.removeItem("activeUserSession"); 
+        location.reload(); 
+    }
+}
+
+function renderReels(){
+    renderPostsList(posts.filter(p => p.type === "video" && (p.privacy === "Public" || p.user === currentUser)), document.getElementById("reelsFeed"));
+}
+
+function escapeHTML(text){
+    let div = document.createElement("div");
+    div.innerText = text || "";
+    return div.innerHTML;
+}
+</script>
+
+</body>
+</html>
